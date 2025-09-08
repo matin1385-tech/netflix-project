@@ -1,0 +1,86 @@
+{% extends "netflix/layout.html" %}
+{% load static %}
+
+{% block content %}
+  <div class="container my-4">
+      <div class="row">
+          <div class="col-md-4">
+              <img src="{% if movie.poster %}{{ movie.poster.url }}{% else %}{% static 'images/default.jpg' %}{% endif %}" 
+                  alt="{{ movie.title }}" 
+                  class="img-fluid rounded shadow">
+          </div>
+
+          <div class="col-md-8">
+              <h2>{{ movie.title }}</h2>
+              <p><strong>Year:</strong> {{ movie.year }}</p>
+              <p><strong>Genre:</strong> {{ movie.genre }}</p>
+              <p>{{ movie.description }}</p>
+
+              <!-- IMDB Rating -->
+              <p><strong>IMDB Rating:</strong>
+                  {% if movie.imdb_rating %}
+                      {{ movie.imdb_rating }}/10
+                  {% else %}
+                      N/A
+                  {% endif %}
+              </p>
+
+              <!-- Actors -->
+              <p><strong>Actors:</strong>
+                  {% if movie.actors.all %}
+                      {% for actor in movie.actors.all %}
+                          {{ actor.name }}{% if not forloop.last %}, {% endif %}
+                      {% endfor %}
+                  {% else %}
+                      N/A
+                  {% endif %}
+              </p>
+
+              <!-- Directors -->
+              <p><strong>Directors:</strong>
+                  {% if movie.directors.all %}
+                      {% for director in movie.directors.all %}
+                          {{ director.name }}{% if not forloop.last %}, {% endif %}
+                      {% endfor %}
+                  {% else %}
+                      N/A
+                  {% endif %}
+              </p>
+
+              <div class="d-flex gap-2">
+                  {% if user.is_authenticated %}
+                      <a href="{% url 'add_to_watchlist' movie.id %}" class="btn btn-danger">Add to Watchlist</a>
+                  {% else %}
+                      <p><a href="{% url 'login' %}">Login</a> to add to watchlist.</p>
+                  {% endif %}
+
+                  <!-- Play Trailer Button -->
+                  <button class="btn btn-primary"
+                          data-bs-toggle="modal"
+                          data-bs-target="#trailerModal"
+                          data-trailer="{{ movie.trailer_url }}"
+                          data-title="{{ movie.title }}">
+                      ▶ Play Trailer
+                  </button>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <!-- Trailer Modal -->
+  <div class="modal fade" id="trailerModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="trailerTitle">{{ movie.title }} - Trailer</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="ratio ratio-16x9">
+            <iframe id="trailerFrame" src="" title="Trailer" allowfullscreen></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
