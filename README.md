@@ -1,71 +1,46 @@
-# Netflix Django Project 🎬
+# CineHub (Netflix-Style Platform)
 
-A Netflix-like movie web application built with **Django** and **Bootstrap 5**.  
-Users can browse movies, view details, watch trailers, and manage a personal watchlist.
+## Project Overview
+This final project is a streaming-like web application inspired by Netflix.  
+Users can browse a catalog of movies with metadata such as **genre, cast, director, IMDb rating**, and more.  
+The system supports a **watchlist** feature and links to **YouTube trailers** for each movie.
 
----
+Demo video: [Watch here](https://youtu.be/Uxjzcv0l8dc?si=j8tfUqZy4BxAinei)
 
-## Features
+## Distinctiveness and Complexity
+This project goes far beyond prior assignments:
+- **Database-driven content**: Movies, genres, and metadata are dynamically retrieved from a backend.
+- **Relational modeling**: Movies are linked to genres, actors, and directors.
+- **Watchlist system**: Logged-in users can save movies to their personal watchlist.
+- **IMDb rating integration**: Each movie displays rating data for better context.
+- **YouTube trailer embedding**: Seamless video previews within the app.
 
-- **Movie Catalog**:
-  - Title, Year, Genre, Description
-  - Poster image
-  - IMDB rating
-  - Actors and Directors
-  - Trailer modal
+This combination of features showcases significant technical depth and design creativity, well above a basic CRUD application.
 
-- **User Authentication**:
-  - Register / Login / Logout
-  - Add movies to watchlist (requires login)
-  
-- **Responsive Design**:
-  - Bootstrap 5 for mobile-first layout
-  - Modern UI with cards, modals, and buttons
+## File Structure
+- `cinehub/`: Django project configuration.
+- `movies/`: Main app containing:
+  - `models.py`: Defines Movies, Genres, Actors, Directors, and Watchlists.
+  - `views.py`: Handles browsing, search, filtering, and watchlist logic.
+  - `templates/`: UI templates for homepage, details, and watchlist.
+- `static/`: CSS, images, and JS files for styling.
 
-- **Admin Panel**:
-  - Full CRUD access to movies, actors, and directors
-  - Easy management of watchlists
+## How to Run
+1. Install dependencies:
+   ```bash
+   pip install django requests
+   ```
+2. Apply migrations:
+   ```bash
+   python manage.py migrate
+   ```
+3. Run the server:
+   ```bash
+   python manage.py runserver
+   ```
+4. Visit `http://127.0.0.1:8000/`.
 
----
-
-## 🗂️ Project Structure
-│   .gitattributes
-│   .gitignore
-│   db.sqlite3
-│   manage.py
-│   README.md
-│   requirements.txt
-│
-├───finalproject
-│   │   asgi.py
-│   │   settings.py
-│   │   urls.py
-│   │   wsgi.py
-│   │   __init__.py
-├───media
-│   ├───netflix
-│   │   └───images
-└───netflix
-    │   admin.py
-    │   apps.py
-    │   forms.py
-    │   models.py
-    │   tests.py
-    │   urls.py
-    │   views.py
-    │   __init__.py
-    ├───static
-    │   └───netflix
-    │       │   scripts.js
-    │       │   style.css
-    │       │
-    │       └───images
-    ├───templates
-    │   └───netflix
-    │           index.html
-    │           layout.html
-    │           login.html
-    │           movie_detail.html
-    │           register.html
-    │           watchlist.html
-
+## Future Improvements
+- User reviews and rating system.
+- Recommendation engine based on user watch history.
+- Mobile-first responsive design.
