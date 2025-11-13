@@ -71,6 +71,7 @@ pip install "Django==5.2.4" Pillow
 python manage.py migrate
 python manage.py createsuperuser
 python manage.py runserver
+```
 Visit: **http://127.0.0.1:8000**
 
 ---
